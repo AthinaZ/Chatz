@@ -139,20 +139,23 @@ const AddChatScreen = ({ navigation }) => {
           buttonStyle={!isGroupChat ? styles.activeButton : styles.inactiveButton}
           titleStyle={!isGroupChat ? styles.activeButtonText : styles.inactiveButtonText}
           onPress={() => setIsGroupChat(false)}
-          title="One-on-One Chat"
+          title="1-on-1 Chat"
         />
       </View>
 
-      {userList.length > 0 ? (
-        <FlatList
-          contentContainerStyle={{ flexGrow: 1 }}
-          data={userList}
-          renderItem={renderUserListItem}
-          keyExtractor={(item) => item.id}
-        />
-      ) : (
-        <Text>No users found.</Text>
-      )}
+      <View style={styles.userListContainer}>
+        <Text style={styles.userListHeaderText}>Select from the following users:</Text>
+        {userList.length > 0 ? (
+          <FlatList
+            contentContainerStyle={styles.userList}
+            data={userList}
+            renderItem={renderUserListItem}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <Text style={styles.noUsersText}>No users found.</Text>
+        )}
+      </View>
 
       <Button
         disabled={!input}
@@ -175,17 +178,17 @@ const styles = StyleSheet.create({
   },
   toggleContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 20,
   },
   activeButton: {
     backgroundColor: '#CE278C',
-    marginRight: 10,
+    marginHorizontal: 10,
   },
   inactiveButton: {
     backgroundColor: 'gray',
-    marginRight: 10,
+    marginHorizontal: 10,
   },
   activeButtonText: {
     fontWeight: 'bold',
@@ -193,6 +196,27 @@ const styles = StyleSheet.create({
   },
   inactiveButtonText: {
     color: 'white',
+  },
+  inactiveButtonText: {
+    color: 'black',
+  },
+  userListContainer: {
+    flex: 1,
+    marginTop: 20,
+    paddingHorizontal: 20,
+  },
+  userListHeaderText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  userList: {
+    flexGrow: 1,
+  },
+  noUsersText: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 50,
   },
   selectUserText: {
     fontWeight: 'bold',
